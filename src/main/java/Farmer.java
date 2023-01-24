@@ -1,4 +1,5 @@
 import javax.lang.model.element.Name;
+import java.util.ArrayList;
 
 public class Farmer extends BaseHero{
 
@@ -12,5 +13,16 @@ public class Farmer extends BaseHero{
     @Override
     public String toString() {
         return super.toString() + ", Supply";
+    }
+
+
+    @Override
+    public void step(ArrayList<BaseHero> listHeroes) {
+
+    }
+
+    @Override
+    public String getInfo() {
+        return null;
     }
 }

@@ -1,6 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
-public class BaseHero {
+public abstract class BaseHero implements BaseInterface{
     String className;
     String name;
     int attack, defence, health, speed;
@@ -13,6 +14,17 @@ public class BaseHero {
         this.damage = damage;
         this.health = health;
         this.speed = speed;
+    }
+
+
+    @Override
+    public void step(ArrayList<BaseHero> listHeroes) {
+
+    }
+
+    @Override
+    public String getInfo() {
+        return this.getClass().getName().split("\\.")[1] + " H" + String.valueOf(health) + "%";
     }
     @Override
     public String toString() {

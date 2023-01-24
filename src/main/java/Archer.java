@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Archer extends BaseHero{
 
     Integer shoots;
@@ -12,6 +14,17 @@ public class Archer extends BaseHero{
     public Archer(String name){
         super(name, "Archer", 12, 10, new int[] {8, 10}, 15, 9);
         this.shoots = 32;
+    }
+
+
+    @Override
+    public void step(ArrayList<BaseHero> listHeroes) {
+
+    }
+
+    @Override
+    public String getInfo() {
+        return null;
     }
 }
 

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Rogue extends BaseHero{
 
     public Rogue(String name, String className, int attack, int defence, int[] damage, int health, int speed, int supply) {
@@ -5,5 +7,16 @@ public class Rogue extends BaseHero{
     }
     public Rogue(String name){
         super(name, "Rogue", 8, 3, new int[] {2, 4}, 10, 6);
+    }
+
+
+    @Override
+    public void step(ArrayList<BaseHero> listHeroes) {
+
+    }
+
+    @Override
+    public String getInfo() {
+        return null;
     }
 }
