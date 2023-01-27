@@ -1,18 +1,11 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
-        public static void main(String[] args) {
-//        for (int i = 0; i < MaleNames.values().length; i++) {
-//            System.out.println(randomName());
-//        }
-//    }
-//
-//    private static MaleNames randomName() {
-//        int i = new Random().nextInt(MaleNames.values().length);
-//        return MaleNames.values()[i];
-//    }
-//}
+
+    public static void main(String[] args) {
+
         ArrayList<BaseHero> TeamOne = new ArrayList<>();
         ArrayList<BaseHero> TeamTwo = new ArrayList<>();
         String[] names = {"Абрам", "Аваз", "Аввакум", "Август", "Августин", "Авдей", "Авенир", "Аверьян", "Авксентий", "Автандил", "Агап",
@@ -32,77 +25,86 @@ public class Main {
                 "Петр", "Платон", "Радик", "Родион", "Рома", "Роман", "Руслан", "Савва", "Савелий", "Святослав", "Семен", "Семён", "Сергей", "Станислав",
                 "Стас", "Степа", "Степан", "Тимофей", "Тимур", "Федор", "Филя", "Фёдор", "Эдуард", "Эрик", "Юрий", "Яков", "Ян", "Ярослав"};
 
+        Random r = new Random();
 
-        ArrayList<BaseHero> farmer = new ArrayList<>();
-        String[] farmerNames = {"Миша","Глеб","Георгий","Олег","Иван"};
-        for (String name : farmerNames){
-            farmer.add(new Farmer(name));
+        for (int i = 0; i < 10; i++) {
+            int rNum = r.nextInt(4);
+            int rName = r.nextInt(names.length);
+            if (rNum == 0) {
+                TeamOne.add(new Peasant(names[rName]));
+            } else if (rNum == 1) {
+                TeamOne.add(new Rogue(names[rName]));
+            } else if (rNum == 2) {
+                TeamOne.add(new Sniper(names[rName]));
+            } else {
+                TeamOne.add(new Mage(names[rName]));
+            }
         }
-        for(BaseHero character : farmer){
-            System.out.println(character);
-        }
-        System.out.println(" ");
 
-        ArrayList<BaseHero> rogue = new ArrayList<>();
-        String[] rogueNames = {"Миша","Глеб","Георгий","Олег","Иван"};
-        for (String name : rogueNames){
-            rogue.add(new Rogue(name));
+        for (int i = 0; i < 10; i++) {
+            int rNum = r.nextInt(4);
+            int randNameNum = r.nextInt(names.length);
+            if (rNum == 0) {
+                TeamTwo.add(new Peasant(names[randNameNum]));
+            } else if (rNum == 1) {
+                TeamTwo.add(new Spearman(names[randNameNum]));
+            } else if (rNum == 2) {
+                TeamTwo.add(new Crossbowman(names[randNameNum]));
+            } else {
+                TeamTwo.add(new Monk(names[randNameNum]));
+            }
         }
-        for(BaseHero character : rogue){
-            System.out.println(character);
-        }
-        System.out.println(" ");
 
-        ArrayList<BaseHero> spearman = new ArrayList<>();
-        String[] spearmanNames = {"Миша","Глеб","Георгий","Олег","Иван"};
-        for (String name : farmerNames){
-            spearman.add(new Spearman(name));
-        }
-        for(BaseHero character : spearman){
-            System.out.println(character);
-        }
-        System.out.println(" ");
+        ArrayList<BaseHero> sortedTeamOne = sortParty(TeamOne);
+        ArrayList<BaseHero> sortedArmyTwo = sortParty(TeamTwo);
 
-        ArrayList<BaseHero> crossbowman = new ArrayList<>();
-        String[] crossbowmanNames = {"Миша","Глеб","Георгий","Олег","Иван"};
-        for (String name : farmerNames){
-            crossbowman.add(new Crossbowman(name));
-        }
-        for(BaseHero character : crossbowman){
-            System.out.println(character);
-        }
-        System.out.println(" ");
+        System.out.printf("Press enter to continue!\n");
+        Scanner scan = new Scanner(System.in);
+        boolean startApp = true;
+        while (startApp) {
+            if (scan.nextLine().contains("exit")) {
+                startApp = false;
+            } else {
+                sortedTeamOne.forEach(n -> System.out.print(n.getInfo() + ", "));
+                sortedTeamOne.forEach(n -> n.step(sortedTeamOne));
 
-        ArrayList<BaseHero> sniper = new ArrayList<>();
-        String[] sniperNames = {"Миша","Глеб","Георгий","Олег","Иван"};
-        for (String name : farmerNames){
-            sniper.add(new Sniper(name));
-        }
-        for(BaseHero character : sniper){
-            System.out.println(character);
-        }
-        System.out.println(" ");
+                System.out.println(" ");
 
-        ArrayList<BaseHero> mage = new ArrayList<>();
-        String[] mageNames = {"Миша","Глеб","Георгий","Олег","Иван"};
-        for (String name : farmerNames){
-            mage.add(new Mage(name));
+            }
         }
-        for(BaseHero character : mage){
-            System.out.println(character);
-        }
-        System.out.println(" ");
-
-        ArrayList<BaseHero> monk = new ArrayList<>();
-        String[] monkNames = {"Миша","Глеб","Георгий","Олег","Иван"};
-        for (String name : farmerNames){
-            monk.add(new Monk(name));
-        }
-        for(BaseHero character : monk){
-            System.out.println(character);
-        }
-        System.out.println(" ");
-
-
     }
+
+//    public static void getHeroes(ArrayList<BaseHero> heroes, String neededClass) {
+//        int count = 0;
+//        for (BaseHero hero : heroes) {
+//            if (hero.toString().contains(neededClass)) {
+//                count++;
+//                System.out.println(count + ". " + hero);
+//            }
+//        }
+//        if (count == 0) {
+//            System.out.printf("Героев класса %s не нашлось.\n", neededClass);
+//        }
+//    }
+
+    public static ArrayList<BaseHero> sortParty(ArrayList<BaseHero> heroes) {
+        ArrayList<BaseHero> resArray = new ArrayList<>();
+        for (BaseHero hero : heroes) {
+            if (hero.getInfo().contains("Monk") || hero.getInfo().contains("Mage")) {
+                resArray.add(hero);
+            }
+        }
+        for (BaseHero hero : heroes) {
+            if (!(hero.getInfo().contains("Peasant") || hero.getInfo().contains("Monk") || hero.getInfo().contains("Mage"))) {
+                resArray.add(hero);
+            }
+        }
+        for (BaseHero hero : heroes) {
+            if (hero.getInfo().contains("Peasant")) {
+                resArray.add(hero);
+            }
+        }
+        return resArray;
+    }
+
 }

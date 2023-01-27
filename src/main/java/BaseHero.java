@@ -1,33 +1,40 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
-public abstract class BaseHero implements BaseInterface{
-    String className;
+public abstract class BaseHero implements BaseInterface {
     String name;
-    int attack, defence, health, speed;
-    int [] damage;
-    public BaseHero(String name, String className, int attack, int defence, int[] damage, int health, int speed){
-        this.className = className;
+    int attack, defence, maxHealth, speed, health, supply;
+    int[] damage;
+
+    Random rand = new Random();
+
+    public BaseHero(String name, int attack, int defence, int[] damage, int maxHealth, int speed) {
         this.name = name;
         this.attack = attack;
         this.defence = defence;
         this.damage = damage;
-        this.health = health;
+        this.maxHealth = maxHealth;
+        this.health = maxHealth - rand.nextInt(maxHealth);
         this.speed = speed;
+        this.supply = 0;
     }
 
 
     @Override
-    public void step(ArrayList<BaseHero> listHeroes) {
+    public void step(ArrayList<BaseHero> heroList) {
 
     }
 
     @Override
     public String getInfo() {
-        return this.getClass().getName().split("\\.")[1] + " H" + String.valueOf(health) + "%";
+        return this.getClass().getName().split("\\.")[0] + " HP " + String.valueOf(health * 100/maxHealth) + "%";
     }
+
     @Override
     public String toString() {
-        return "Name: " + name + ", Class: " + className + ", Attack: " + attack + ", Defence: " + defence + ", Damage: " + Arrays.toString(damage) + ", Health: " + health + ", Speed: " + speed;
+        return "Name: " + name + ", Type: " + getInfo() + ", Attack: " + attack + ", Defence: "
+                + defence + ", Damage: " + Arrays.toString(damage) + ", Health: "
+                + health + ", Speed: " + speed;
     }
 }

@@ -1,30 +1,36 @@
 import java.util.ArrayList;
 
-public class Archer extends BaseHero{
-
-    Integer shoots;
-    public Archer(String name, String className, int attack, int defence, int[] damage, int health, int speed, int shoots) {
-        super(name, className, attack, defence, damage, health, speed);
-        this.shoots = shoots;
+public class Archer extends BaseHero {
+    Integer shots;
+    public Archer(String name, int attack, int defence, int[] damage, int maxHealth, int speed, int shots) {
+        super(name, attack, defence, damage, maxHealth, speed);
+        this.shots = shots;
     }
+
     @Override
     public String toString() {
-        return super.toString() + ", Shoots: " + shoots;
+        return super.toString() + ", Shots " + shots;
     }
-    public Archer(String name){
-        super(name, "Archer", 12, 10, new int[] {8, 10}, 15, 9);
-        this.shoots = 32;
-    }
-
 
     @Override
-    public void step(ArrayList<BaseHero> listHeroes) {
-
+    public void step(ArrayList<BaseHero> heroList) {
+        for (BaseHero hero : heroList) {
+            if (hero.supply == 1) {
+                hero.supply -= 1;
+                this.shots += 1;
+                break;
+            }
+        }
+        if (this.shots > 0) {
+            this.shots -= 1;
+        } else {
+            System.out.println("\nНечем стрелять!");
+        }
     }
 
     @Override
     public String getInfo() {
-        return null;
+        return this.getClass().getName().split("\\.")[0] + " HP " + String.valueOf(health * 100/maxHealth) + "%" + " Shots " + shots;
     }
 }
 
